@@ -7,7 +7,7 @@ if(!BACKEND_BASE_URL)
 
 const options: CreateDataProviderOptions = {
   getList: {
-    getEndpoint: ({ resource }) => resource,
+    getEndpoint: ({ resource }) => `/api/${resource}`,
 
     buildQueryParams: async ({ resource, pagination, filters }) => {
       const page = pagination ?.currentPage ?? 1;

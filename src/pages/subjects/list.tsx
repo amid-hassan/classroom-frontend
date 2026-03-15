@@ -29,14 +29,14 @@ const SubjectsList = () => {
             accessorKey: 'code',
             size: 100,
             header: () => <p className="column-title ml-2">Code</p>,
-            cell: ({ getValue}) => <Badge>{getValue<String>()}</Badge>
+            cell: ({ getValue}) => <Badge>{getValue<string>()}</Badge>
         },
         {
             id: 'name',
             accessorKey: 'name',
             size: 200,
             header: () => <p className="column-title">Name</p>,
-            cell: ({ getValue}) => <span className={"text-foreground"}>{getValue<String>()}</span>,
+            cell: ({ getValue}) => <span className={"text-foreground"}>{getValue<string>()}</span>,
             filterFn: 'includesString'
         },
         {
@@ -44,7 +44,7 @@ const SubjectsList = () => {
             accessorKey: 'department.name',
             size: 150,
             header: () => <p className="column-title">Department</p>,
-            cell: ({ getValue}) => <Badge variant="secondary">{getValue<String>()}</Badge>,
+            cell: ({ getValue}) => <Badge variant="secondary">{getValue<string>()}</Badge>,
         },
         {
             id: 'description',
