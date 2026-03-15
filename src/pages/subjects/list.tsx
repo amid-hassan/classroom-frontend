@@ -110,7 +110,7 @@ const SubjectsList = () => {
                 <p>Quick access to essential metrics and management tools.</p>
 
                 <div className="action-row">
-                    <div className="search-filed">
+                    <div className="search-field">
                         <Search className="search-icon"/>
 
                         <Input
@@ -127,7 +127,7 @@ const SubjectsList = () => {
                             onValueChange={setSelectedDepartment}
                         >
                             <SelectTrigger>
-                                <SelectValue placeholder="Fliter by department" />
+                                <SelectValue placeholder="Filter by department" />
                             </SelectTrigger>
 
                             <SelectContent>
