@@ -8,7 +8,7 @@ import {DEPARTMENT_OPTIONS} from "@/constants";
 import {CreateButton} from "@/components/refine-ui/buttons/create.tsx";
 import {DataTable} from "@/components/refine-ui/data-table/data-table.tsx";
 import {useTable} from "@refinedev/react-table";
-import {Subject} from "@/types ";
+import {Subject} from "@/types";
 import {Badge} from "@/components/ui/badge.tsx";
 import {ColumnDef} from "@tanstack/react-table";
 
@@ -16,12 +16,44 @@ const SubjectsList = () => {
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedDepartment, setSelectedDepartment] = useState('all')
 
-    const departmentFilters = selectedDepartment == 'all' ? [] : [
+    const departmentFilters = selectedDepartment === 'all' ? [] : [
         { field: 'department', operator: 'eq' as const, value: selectedDepartment }
     ];
     const searchFilters = searchQuery ? [
-        { field: 'name', operator: 'contains' as const, value: searchQuery}
+        { field: 'name', operator: 'contains' as const, value: searchQuery }
     ] : [];
+
+    const subjectColumns =useMemo<ColumnDef<Subject>[]>(()=>[
+        {
+            id: 'code',
+            accessorKey: 'code',
+            size: 100,
+            header: () => <p className="column-title ml-2">Code</p>,
+            cell: ({ getValue}) => <Badge>{getValue<String>()}</Badge>
+        },
+        {
+            id: 'name',
+            accessorKey: 'name',
+            size: 200,
+            header: () => <p className="column-title">Name</p>,
+            cell: ({ getValue}) => <span className={"text-foreground"}>{getValue<String>()}</span>,
+            filterFn: 'includesString'
+        },
+        {
+            id: 'department',
+            accessorKey: 'department.name',
+            size: 150,
+            header: () => <p className="column-title">Department</p>,
+            cell: ({ getValue}) => <Badge variant="secondary">{getValue<String>()}</Badge>,
+        },
+        {
+            id: 'description',
+            accessorKey: 'description',
+            size: 300,
+            header: () => <p className="column-title">Description</p>,
+            cell: ({ getValue}) => <span className="turncate line-clamp-2">{getValue<string>()}</span>,
+        }
+    ], []);
 
     const subjectTable = useTable<Subject>({
         columns: useMemo<ColumnDef<Subject>[]>(() =>[
@@ -29,14 +61,14 @@ const SubjectsList = () => {
                 id: 'code',
                 accessorKey: 'code',
                 size: 100,
-                header: () => <p className="coloumn-title ml-2">Code</p>,
+                header: () => <p className="column-title ml-2">Code</p>,
                 cell: ({ getValue}) => <Badge>{getValue<String>()}</Badge>
             },
             {
                 id: 'name',
                 accessorKey: 'name',
                 size: 200,
-                header: () => <p className="coloumn-title">Name</p>,
+                header: () => <p className="column-title">Name</p>,
                 cell: ({ getValue}) => <span className={"text-foreground"}>{getValue<String>()}</span>,
                 filterFn: 'includesString'
             },
@@ -44,13 +76,14 @@ const SubjectsList = () => {
                 id: 'department',
                 accessorKey: 'department',
                 size: 150,
-                header: () => <p className="coloumn-title">Department</p>,
+                header: () => <p className="column-title">Department</p>,
                 cell: ({ getValue}) => <Badge variant="secondary">{getValue<String>()}</Badge>,
             },
             {
                 id: 'description',
                 accessorKey: 'description',
                 size: 300,
+                header: () => <p className="column-title">Description</p>,
                 cell: ({ getValue}) => <span className="turncate line-clamp-2">{getValue<string>()}</span>,
             }
         ], []),
@@ -77,7 +110,7 @@ const SubjectsList = () => {
                 <p>Quick access to essential metrics and management tools.</p>
 
                 <div className="action-row">
-                    <div className="search-filed">
+                    <div className="search-field">
                         <Search className="search-icon"/>
 
                         <Input
@@ -94,7 +127,7 @@ const SubjectsList = () => {
                             onValueChange={setSelectedDepartment}
                         >
                             <SelectTrigger>
-                                <SelectValue placeholder="Fliter by department" />
+                                <SelectValue placeholder="Filter by department" />
                             </SelectTrigger>
 
                             <SelectContent>
