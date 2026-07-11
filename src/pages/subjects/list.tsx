@@ -23,20 +23,20 @@ const SubjectsList = () => {
         { field: 'name', operator: 'contains' as const, value: searchQuery }
     ] : [];
 
-    const subjectColumns =useMemo<ColumnDef<Subject>[]>(()=>[
+    const subjectColumns = useMemo<ColumnDef<Subject>[]>(() => [
         {
             id: 'code',
             accessorKey: 'code',
             size: 100,
             header: () => <p className="column-title ml-2">Code</p>,
-            cell: ({ getValue}) => <Badge>{getValue<String>()}</Badge>
+            cell: ({ getValue }) => <Badge>{getValue<String>()}</Badge>
         },
         {
             id: 'name',
             accessorKey: 'name',
             size: 200,
             header: () => <p className="column-title">Name</p>,
-            cell: ({ getValue}) => <span className={"text-foreground"}>{getValue<String>()}</span>,
+            cell: ({ getValue }) => <span className={"text-foreground"}>{getValue<String>()}</span>,
             filterFn: 'includesString'
         },
         {
@@ -44,62 +44,33 @@ const SubjectsList = () => {
             accessorKey: 'department.name',
             size: 150,
             header: () => <p className="column-title">Department</p>,
-            cell: ({ getValue}) => <Badge variant="secondary">{getValue<String>()}</Badge>,
+            cell: ({ getValue }) => <Badge variant="secondary">{getValue<String>()}</Badge>,
         },
         {
             id: 'description',
             accessorKey: 'description',
             size: 300,
             header: () => <p className="column-title">Description</p>,
-            cell: ({ getValue}) => <span className="turncate line-clamp-2">{getValue<string>()}</span>,
+            cell: ({ getValue }) => <span className="turncate line-clamp-2">{getValue<string>()}</span>,
         }
     ], []);
 
     const subjectTable = useTable<Subject>({
-        columns: useMemo<ColumnDef<Subject>[]>(() =>[
-            {
-                id: 'code',
-                accessorKey: 'code',
-                size: 100,
-                header: () => <p className="column-title ml-2">Code</p>,
-                cell: ({ getValue}) => <Badge>{getValue<String>()}</Badge>
-            },
-            {
-                id: 'name',
-                accessorKey: 'name',
-                size: 200,
-                header: () => <p className="column-title">Name</p>,
-                cell: ({ getValue}) => <span className={"text-foreground"}>{getValue<String>()}</span>,
-                filterFn: 'includesString'
-            },
-            {
-                id: 'department',
-                accessorKey: 'department',
-                size: 150,
-                header: () => <p className="column-title">Department</p>,
-                cell: ({ getValue}) => <Badge variant="secondary">{getValue<String>()}</Badge>,
-            },
-            {
-                id: 'description',
-                accessorKey: 'description',
-                size: 300,
-                header: () => <p className="column-title">Description</p>,
-                cell: ({ getValue}) => <span className="turncate line-clamp-2">{getValue<string>()}</span>,
-            }
-        ], []),
-        refineCoreProps:{
+        columns: subjectColumns,
+        refineCoreProps: {
             resource: 'subjects',
-            pagination: { pageSize: 10, mode: 'server'},
+            pagination: { pageSize: 10, mode: 'server' },
             filters: {
                 permanent: [...departmentFilters, ...searchFilters]
             },
             sorters: {
                 initial: [
-                    { field: 'id', order: 'desc'},
+                    { field: 'id', order: 'desc' },
                 ]
             },
         }
     });
+
     return (
         <ListView>
             <Breadcrumb/>
