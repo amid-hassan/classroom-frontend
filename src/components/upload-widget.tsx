@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {UploadWidgetValue} from "@/types";
 import {UploadCloud} from "lucide-react";
 import {CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET} from "@/constants";
@@ -27,7 +27,7 @@ const UploadWidget = ({value = null, onChange, disabled = false}) => {
                 uploadPreset: CLOUDINARY_UPLOAD_PRESET,
                 multiple: false,
                 folder: 'uploads',
-                maxFILEsize: 5000000,
+                maxFilesize: 5000000,
                 clientAllowedFormats: ['png', 'jpg', 'jpeg', 'webp']
             }, (error, result) => {
                 if(!error && result.event === "success") {
