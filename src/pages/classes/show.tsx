@@ -58,9 +58,13 @@ const Show = () => {
 
 
             <div className="banner">
-                {bannerUrl ? (
-                    <AdvancedImage alt="Class Banner" cldImg={bannerPhoto(bannerCldPubId ?? '', name)}/>
-                ) : <div className="placeholder" />}
+                 {bannerCldPubId ? (
+                    <AdvancedImage alt={`${name} banner`} cldImg={bannerPhoto(bannerCldPubId, name)} />
+                 ) : bannerUrl ? (
+                    <img src={bannerUrl} alt={`${name} banner`} />
+                 ) : (
+                    <div className="placeholder" />
+                  )}
             </div>
 
 
