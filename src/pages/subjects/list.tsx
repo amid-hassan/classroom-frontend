@@ -80,13 +80,14 @@ const SubjectsList = () => {
             <div className="intro-row">
                 <p>Quick access to essential metrics and management tools.</p>
 
-                <div className="action-row">
+                <div className="actions-row">
                     <div className="search-field">
                         <Search className="search-icon"/>
 
                         <Input
                             type="text"
                             placeholder="Search by name..."
+                            className="pl-10 w-full"
                             value={searchQuery}
                             onChange={(e)  => setSearchQuery(e.target.value)}
                         />
